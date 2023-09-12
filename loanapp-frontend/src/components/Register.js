@@ -3,15 +3,17 @@ import axios from "axios";
 
 const Register = () => {
     const baseURL = "http://localhost:7000/saveUser";
-    const [username, setUsername] = useState("")
+    const [id, setId] = useState("")
     const [password, setPassword] = useState("")
     const [fullname, setFullname] = useState("")
     const [designation, setDesignation] = useState("")
     const [department, setDepartment] = useState("")
     const [dob, setDob] = useState("")
+    const [doj, setDoj] = useState("")
+    const [gender, setGender] = useState("");
 
-    const usernameChangeHandler = (event) => {
-        setUsername(event.target.value);
+    const idChangeHandler = (event) => {
+        setId(event.target.value);
     }
 
     const passwordChangeHandler = (event) => {
@@ -34,19 +36,29 @@ const Register = () => {
         setDob(event.target.value);
     }
 
+    const dojChangeHandler = (event) => {
+        setDoj(event.target.value);
+    }
+
+    const genderChangeHandler = (event) => {
+        setGender(event.target.value);
+    }
+
     const submitActionHandler = (event) => {
         event.preventDefault();
         axios
           .post(baseURL, {
-            username: username,
+            id: id,
             password: password,
             name: fullname,
             designation: designation,
             department:department,
-            dob: dob
+            dob: dob,
+            doj: doj,
+            gender: gender
           })
           .then((response) => {
-            alert(response.data.fullname);
+            // alert(response.data.fullname);
             alert("Employee "+ fullname +" added!");
             //navigate("/account");
           }).catch(error => {
@@ -59,7 +71,7 @@ const Register = () => {
         <>
         <form onSubmit={submitActionHandler}>
             <p>
-            <label>Username: <input type="text" value={username} onChange={usernameChangeHandler}></input></label>
+            <label>Employee Id: <input type="text" value={id} onChange={idChangeHandler}></input></label>
             </p>
 
             <p>
@@ -80,6 +92,14 @@ const Register = () => {
 
             <p>
             <label>Date of Birth: <input type="date" value={dob} onChange={dobChangeHandler}></input></label>
+            </p>
+
+            <p>
+            <label>Date of Joining: <input type="date" value={doj} onChange={dojChangeHandler}></input></label>
+            </p>
+
+            <p>
+            <label>Gender <input type="text" value={gender} onChange={genderChangeHandler}></input></label>
             </p>
 
             <button type="submit">Register</button>

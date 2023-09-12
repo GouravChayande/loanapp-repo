@@ -19,12 +19,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name="user_info")
 public class User {
 	@Id
-	@GeneratedValue
 	@Column(name="user_id")
-	private int id;
-	
-	@Column(length=30, nullable=false, unique=true)
-	private String username;
+	private String id;
 	
 	@Column(length=10, nullable=false)
 	private String password;
@@ -41,6 +37,13 @@ public class User {
 	
 	@Column(length=20, nullable=false)
 	private String department;
+	
+	@Column(nullable=false)
+	private String gender;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	@Column(nullable=false)
+	private LocalDate doj;
 	
 	@OneToMany(mappedBy="user",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<UserCard> userCard;
@@ -85,17 +88,12 @@ public class User {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public int getId() {
+
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
-	}
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	public String getPassword() {
 		return password;
@@ -103,6 +101,20 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public LocalDate getDoj() {
+		return doj;
+	}
+	public void setDoj(LocalDate doj) {
+		this.doj = doj;
+	}
+	
+	
 	
 	
 }
