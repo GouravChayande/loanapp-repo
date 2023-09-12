@@ -6,12 +6,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Loan {
 	@Id
+	@GeneratedValue
 	@Column(name="loan_id")
 	private int loanId;
 	
@@ -24,6 +26,14 @@ public class Loan {
 	@OneToMany(mappedBy="loan",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<UserCard> userCard;
 	
+	public List<UserCard> getUserCard() {
+		return userCard;
+	}
+
+	public void setUserCard(List<UserCard> userCard) {
+		this.userCard = userCard;
+	}
+
 	public int getLoanDuration() {
 		return loanDuration;
 	}

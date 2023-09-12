@@ -1,20 +1,25 @@
 package com.example.loanapp.model;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="user_info")
 public class User {
 	@Id
-//	@GeneratedId
+	@GeneratedValue
 	@Column(name="user_id")
 	private int id;
 	
@@ -24,6 +29,13 @@ public class User {
 	@Column(length=10, nullable=false)
 	private String password;
 	
+	@Column(name="full_name",length=40, nullable=false)
+	private String name;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	@Column(nullable=false)
+	private LocalDate dob;
+	
 	@Column(length=30, nullable=false)
 	private String designation;
 	
@@ -32,6 +44,34 @@ public class User {
 	
 	@OneToMany(mappedBy="user",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<UserCard> userCard;
+	
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private Set<UserIssue> userIssue;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public LocalDate getDob() {
+		return dob;
+	}
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+	public List<UserCard> getUserCard() {
+		return userCard;
+	}
+	public void setUserCard(List<UserCard> userCard) {
+		this.userCard = userCard;
+	}
+	public Set<UserIssue> getUserIssue() {
+		return userIssue;
+	}
+	public void setUserIssue(Set<UserIssue> userIssue) {
+		this.userIssue = userIssue;
+	}
 	
 	public String getDesignation() {
 		return designation;

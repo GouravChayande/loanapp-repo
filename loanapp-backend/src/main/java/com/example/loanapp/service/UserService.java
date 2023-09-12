@@ -1,5 +1,7 @@
 package com.example.loanapp.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +15,23 @@ public class UserService {
 	UserRepository userRepo;
 	
 	
-	public User saveUser(User u) {
+	public String saveUser(User u) {
+		String result="";
 		
 		User obj = null;
-		obj = userRepo.findById(u.getId()).get();
+		Optional<User>optional = userRepo.findById(u.getId());
 		
-		if(obj == null) {
-			obj=userRepo.save(u);
+		if(optional.isPresent()) {
+			result="User already exists.";
 		}
-		return obj;
+		else {
+			obj = userRepo.save(u);
+			if(obj!=null)
+				result = "User saved successfuly.";
+			else
+				result = "Registration failed!";
+		}
+		
+		return result;
 	}
 }
