@@ -24,13 +24,13 @@ public class Loan {
 	private int loanDuration;
 	
 	@OneToMany(mappedBy="loan",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private List<UserCard> userCard;
+	private List<LoanCard> userCard;
 	
-	public List<UserCard> getUserCard() {
+	public List<LoanCard> getUserCard() {
 		return userCard;
 	}
 
-	public void setUserCard(List<UserCard> userCard) {
+	public void setUserCard(List<LoanCard> userCard) {
 		this.userCard = userCard;
 	}
 

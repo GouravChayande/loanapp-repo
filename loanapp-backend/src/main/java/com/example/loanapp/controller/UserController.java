@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.loanapp.model.User;
-import com.example.loanapp.model.UserLogin;
 import com.example.loanapp.service.UserService;
 
 @RestController
@@ -37,14 +36,6 @@ class UserController {
 //		else {
 //			result = "Failed to insert data";
 //		}
-		
-		return result;
-	}
-	
-	@PostMapping("/loginUser")
-	public String loginUser(@RequestBody UserLogin u) {
-		String result = "";
-		result = userService.loginUser(u);
 		
 		return result;
 	}

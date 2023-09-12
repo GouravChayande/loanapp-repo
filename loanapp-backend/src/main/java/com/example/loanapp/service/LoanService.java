@@ -5,29 +5,29 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.loanapp.model.User;
-import com.example.loanapp.repository.UserRepository;
+import com.example.loanapp.model.Loan;
+import com.example.loanapp.repository.LoanRepository;
 
 @Service
-public class UserService {
+public class LoanService {
 	
 	@Autowired
-	UserRepository userRepo;
+	LoanRepository loanRepo;
 	
 	
-	public String saveUser(User u) {
+	public String saveLoan(Loan l) {
 		String result="";
 		
-		User obj = null;
-		Optional<User>optional = userRepo.findById(u.getId());
+		Loan obj = null;
+		Optional<Loan>optional = loanRepo.findById(l.getLoanId());
 		
 		if(optional.isPresent()) {
-			result="User already exists.";
+			result="Loan already exists.";
 		}
 		else {
-			obj = userRepo.save(u);
+			obj = loanRepo.save(l);
 			if(obj!=null)
-				result = "User saved successfuly.";
+				result = "Loan saved successfuly.";
 			else
 				result = "Registration failed!";
 		}
