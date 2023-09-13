@@ -1,6 +1,8 @@
 package com.example.loanapp.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +35,18 @@ public class LoanService {
 		}
 		
 		return result;
+	}
+	
+	public List<Loan> getAllLoans(){
+		return loanRepo.findAll();
+	}
+	
+	public List<String> getLoanBytype(){
+		List<String> loanType = loanRepo.findAll().stream().map(Loan::getLoanType).distinct().collect(Collectors.toList());
+		return loanType;
+	}
+	
+	public Loan getLoanById(int lNo){
+		return loanRepo.findById(lNo).get();
 	}
 }
